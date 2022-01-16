@@ -37,7 +37,8 @@ private:
 public:
     void setVersteckchance();
     bool hide();
-    void extraInfo();          //extra information für Initialisieren
+    void extraInfo();   //extra information für Initialisieren
+    double getVersteckchance();
 };
 class Karnivoren:public Tieren {
 public:
@@ -74,7 +75,8 @@ void Tieren::printInfo() {
     log("End");
 }
 std::ostream& operator<<(std::ostream& stream, Tieren& Tier) {    //practicing operator overloading
-    stream << Tier.getGewicht() << "\n" << Tier.getRasse() << "\n" << Tier.getMaxGewicht() << "\n" << Tier.getMinGewicht() << "\n" << Tier.getWachstumsrate() << "\n" << Tier.getVermehrrate();
+    stream << "Gewicht " << Tier.getGewicht() << "\nRasse " << Tier.getRasse() << "\nMax Gewicht " << Tier.getMaxGewicht() << "\nMin Gewicht " << Tier.getMinGewicht()
+           << "\nWachstumsrate " << Tier.getWachstumsrate() << "\nVermehrrate " << Tier.getVermehrrate();
     return stream;
 }
 void Tieren::setInfo(std::string& Race) {
@@ -113,8 +115,6 @@ void Tieren::initialisieren() {
 
 }
 
-
-
 void Hebivoren::setVersteckchance() {
     if(getRasse() == "Brachiosaurus") {
         Versteckchance = 50/100;
@@ -123,6 +123,12 @@ void Hebivoren::setVersteckchance() {
         Versteckchance = 75/100;
     }
 }
+double Hebivoren::getVersteckchance() {
+    return Versteckchance;
+}
+
+
+
 void CreatingHebi (std::vector<Hebivoren>& Hebi, Hebivoren& h1, std::string& Race ) {
     h1.setInfo(Race);
     h1.setVersteckchance();
@@ -153,12 +159,14 @@ void Initating(std::vector<Hebivoren>& Hebi, std::vector<Karnivoren>& Karni, Heb
         CreatingKarni(Karni, k1, Race);
     }
     for(unsigned int i = 0; i < Hebi.size(); i ++ ) {
-        std::cout << Hebi.at(i);
+        std::cout << Hebi.at(i) << std::endl;
+        std::cout << Hebi.at(i).getVersteckchance() << std::endl;
     }
     for(unsigned int i = 0; i < Karni.size(); i ++ ) {
-        std::cout << Karni.at(i);
+        std::cout << Karni.at(i) <<std::endl;
     }
 }
+
 int main()
 {
     srand(time(NULL));
