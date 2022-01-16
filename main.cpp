@@ -46,6 +46,7 @@ public:
     void extraInfo();       //extra information für Initialiesieren
 
 };
+void printPark(std::vector<Hebivoren>& Hebi, std::vector<Karnivoren>& Karni);
 
 int Tieren::getGewicht() {
     return Gewicht;
@@ -98,15 +99,15 @@ void Tieren::setInfo(std::string& Race) {
         Rasse ="Raptor";
         Maximalgewicht = 500;
         MinGewicht = (20 * Maximalgewicht) / 100;
-        Wachstumsrate = 30/100;
-        Vermehrrate = 12/100;
+        Wachstumsrate = 0.3;
+        Vermehrrate = 0.12;
     }
     if(Race == "Tyrannosaurus Rex") {
         Rasse ="Tyrannosaurus Rex";
         Maximalgewicht = 8000;
         MinGewicht = (20 * Maximalgewicht) / 100;
-        Wachstumsrate = 20/100;
-        Vermehrrate = 8/100;
+        Wachstumsrate = 0.2;
+        Vermehrrate = 0.08;
     }
 
 }
@@ -117,10 +118,10 @@ void Tieren::initialisieren() {
 
 void Hebivoren::setVersteckchance() {
     if(getRasse() == "Brachiosaurus") {
-        Versteckchance = 50/100;
+        Versteckchance = 0.5;
     }
     if(getRasse() == "Parasaurolophus") {
-        Versteckchance = 75/100;
+        Versteckchance = 0.75;
     }
 }
 double Hebivoren::getVersteckchance() {
@@ -158,13 +159,17 @@ void Initating(std::vector<Hebivoren>& Hebi, std::vector<Karnivoren>& Karni, Heb
     for(int i = 0; i < 2; i++) {
         CreatingKarni(Karni, k1, Race);
     }
-    for(unsigned int i = 0; i < Hebi.size(); i ++ ) {
-        std::cout << Hebi.at(i) << std::endl;
-        std::cout << Hebi.at(i).getVersteckchance() << std::endl;
-    }
-    for(unsigned int i = 0; i < Karni.size(); i ++ ) {
-        std::cout << Karni.at(i) <<std::endl;
-    }
+    printPark(Hebi, Karni);
+
+}
+void printPark(std::vector<Hebivoren>& Hebi, std::vector<Karnivoren>& Karni) {
+    for(unsigned int i = 0; i < Hebi.size(); i ++ ) {      //print out all information to check
+            std::cout << Hebi.at(i) << std::endl;
+            std::cout << Hebi.at(i).getVersteckchance() << std::endl;
+        }
+        for(unsigned int i = 0; i < Karni.size(); i ++ ) {
+            std::cout << Karni.at(i) <<std::endl;
+        }
 }
 
 int main()
