@@ -49,12 +49,16 @@ public:
     void extraInfo();   //extra information für Initialisieren
     double getVersteckchance();
 };
+
+
 class Karnivoren:public Tieren {
 private:
     int FailedHuntCounter;
+    bool huntSuccess{false};
 public:
     void hunt(std::vector<Hebivoren>& Hebi);
     void extraInfo();       //extra information für Initialiesieren
+    int getFailHunt();
     Karnivoren() {
         FailedHuntCounter = 0;
     }
@@ -107,6 +111,7 @@ void Tieren::Altersschwaeche() {
         random = rand()%100;
         if(random <= dropDead) {
             dead = true;
+
         }
     }
 }
@@ -197,25 +202,33 @@ double Hebivoren::getVersteckchance() {
 
 //Karnivoren Quellcode
 
-void Karnivoren::hunt(std::vector<Hebivoren>& Hebi) {
+void Karnivoren::hunt(std::vector<Hebivoren>& Hebi) {          //here the Karnivoren will hunt a pack of Hebivoren, so there're little chance that these meat-craving guys will die
     int random{};
     for(unsigned int i{}; i < Hebi.size(); i++) {
         if(getGewicht() >= Hebi.at(i).getGewicht()) {    //check if the prey is smaller than the hunter
             random = rand() % 100;
-            if(random > Hebi.at(i).getVersteckchance()) {
+            if(random > Hebi.at(i).getVersteckchance() && Hebi.at(i).dead == false) {
                 Hebi.at(i).dead = true;
                 Gewicht = Gewicht + ((getMaxGewicht()*20)/100);
+                std::cout << "A " << Hebi.at(i).getRasse() << " has been hunted down" << std::endl;
+                huntSuccess = true;
                 break;
             }
-            else {
-                FailedHuntCounter++;
-            }
+
         }
+    }
+    if(huntSuccess == false) {
+        FailedHuntCounter++;
     }
     if(FailedHuntCounter >= 2) {
         dead = true;
     }
 }
+int Karnivoren::getFailHunt() {
+    return FailedHuntCounter;
+}
+
+
 
 //Alle Funktionen Quellcode
 
@@ -277,6 +290,7 @@ void passingTime(std::vector<Hebivoren>& Hebi, std::vector<Karnivoren>& Karni, H
         }
         Hebi.at(i).Alterungsschritt();
     }
+    std::cout << "\n";
     for(unsigned int i{}; i < Karni.size(); i++) {
         if(Karni.at(i).checkAge()) {
             Karni.at(i).Altersschwaeche();
@@ -289,7 +303,10 @@ void passingTime(std::vector<Hebivoren>& Hebi, std::vector<Karnivoren>& Karni, H
             }
         }
         Karni.at(i).Alterungsschritt();
+        Karni.at(i).hunt(Hebi);
     }
+    removeDead(Hebi, Karni);
+
 }
 void printPark(std::vector<Hebivoren>& Hebi, std::vector<Karnivoren>& Karni) {
     for(unsigned int i = 0; i < Hebi.size(); i ++ ) {      //print out all information to check
@@ -297,21 +314,22 @@ void printPark(std::vector<Hebivoren>& Hebi, std::vector<Karnivoren>& Karni) {
             std::cout << "Vermehrrate: " <<Hebi.at(i).getVersteckchance() << std::endl<< std::endl;
         }
         for(unsigned int i = 0; i < Karni.size(); i ++ ) {
-            std::cout << Karni.at(i) <<std::endl<< std::endl;
+            std::cout << Karni.at(i) <<std::endl;
+            std::cout << Karni.at(i).getFailHunt() << std::endl<< std::endl;
         }
 }
 void removeDead(std::vector<Hebivoren>& Hebi, std::vector<Karnivoren>& Karni) {
     for(unsigned int i = 0; i < Hebi.size(); i ++ ) {
-        if(Hebi.at(i).dead) {
-            Hebi.erase(Hebi.begin()+i);
+        if(Hebi.at(i).dead) {       
             std::cout << "A " << Hebi.at(i).getRasse() << " is dead" << std::endl ;
+            Hebi.erase(Hebi.begin()+i);
             i--;
         }
     }
     for(unsigned int i = 0; i < Karni.size(); i ++ ) {
-        if(Karni.at(i).dead) {
-            Karni.erase(Karni.begin()+i);
+        if(Karni.at(i).dead) {    
             std::cout << "A " << Karni.at(i).getRasse() << " is dead" << std::endl;
+            Karni.erase(Karni.begin()+i);
             i--;
         }
     }
@@ -325,8 +343,8 @@ int main()
     Hebivoren h1;
     Karnivoren k1;
     Initating(Hebi, Karni, h1, k1);
-
-    passingTime(Hebi,Karni, h1, k1);
     printPark(Hebi, Karni);
+    passingTime(Hebi,Karni, h1, k1);
+
 }
 
