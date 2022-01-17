@@ -7,7 +7,7 @@
 
 class Tieren {
 private:
-    int Gewicht;
+
     int Maximalgewicht;
     int MinGewicht;
     double Wachstumsrate;
@@ -15,7 +15,7 @@ private:
 
 protected:
     std::string Rasse;
-
+    int Gewicht;
 public:
     bool dead{false};
     bool breeding{false};
@@ -53,7 +53,7 @@ class Karnivoren:public Tieren {
 private:
     int FailedHuntCounter;
 public:
-    void hunt();
+    void hunt(std::vector<Hebivoren>& Hebi);
     void extraInfo();       //extra information für Initialiesieren
     Karnivoren() {
         FailedHuntCounter = 0;
@@ -197,7 +197,25 @@ double Hebivoren::getVersteckchance() {
 
 //Karnivoren Quellcode
 
-
+void Karnivoren::hunt(std::vector<Hebivoren>& Hebi) {
+    int random{};
+    for(unsigned int i{}; i < Hebi.size(); i++) {
+        if(getGewicht() >= Hebi.at(i).getGewicht()) {    //check if the prey is smaller than the hunter
+            random = rand() % 100;
+            if(random > Hebi.at(i).getVersteckchance()) {
+                Hebi.at(i).dead = true;
+                Gewicht = Gewicht + ((getMaxGewicht()*20)/100);
+                break;
+            }
+            else {
+                FailedHuntCounter++;
+            }
+        }
+    }
+    if(FailedHuntCounter >= 2) {
+        dead = true;
+    }
+}
 
 //Alle Funktionen Quellcode
 
@@ -287,12 +305,14 @@ void removeDead(std::vector<Hebivoren>& Hebi, std::vector<Karnivoren>& Karni) {
         if(Hebi.at(i).dead) {
             Hebi.erase(Hebi.begin()+i);
             std::cout << "A " << Hebi.at(i).getRasse() << " is dead" << std::endl ;
+            i--;
         }
     }
     for(unsigned int i = 0; i < Karni.size(); i ++ ) {
         if(Karni.at(i).dead) {
             Karni.erase(Karni.begin()+i);
             std::cout << "A " << Karni.at(i).getRasse() << " is dead" << std::endl;
+            i--;
         }
     }
 }
