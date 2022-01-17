@@ -259,6 +259,19 @@ void passingTime(std::vector<Hebivoren>& Hebi, std::vector<Karnivoren>& Karni, H
         }
         Hebi.at(i).Alterungsschritt();
     }
+    for(unsigned int i{}; i < Karni.size(); i++) {
+        if(Karni.at(i).checkAge()) {
+            Karni.at(i).Altersschwaeche();
+        }
+        if(!Karni.at(i).dead) {
+            Karni.at(i).breed();
+            if(Karni.at(i).breeding == true) {
+                breedKarni(Karni, k1, Karni.at(i).getRasse());
+                std::cout << "A wild "<< Karni.at(i).getRasse() << " has been born" << std::endl;
+            }
+        }
+        Karni.at(i).Alterungsschritt();
+    }
 }
 void printPark(std::vector<Hebivoren>& Hebi, std::vector<Karnivoren>& Karni) {
     for(unsigned int i = 0; i < Hebi.size(); i ++ ) {      //print out all information to check
