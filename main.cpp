@@ -34,7 +34,10 @@ public:
     void setInfo(std::string& Rasse);
     std::string getRasse();
     void printInfo();
-
+    Tieren() {
+        dead = false;
+        breeding = false;
+    }
 };
 
 class Hebivoren:public Tieren {
@@ -78,7 +81,7 @@ Jedoch gehoert breed() zu Klass Tieren (nach Aufgabe), wie kann ich ein Counter 
 void Tieren::breed() {     //ein Tier vermehrt sich wie eine Zelle...
     int random;
     random = rand()%100;
-    if(random <= Vermehrrate) {
+    if(random <= Vermehrrate && Gewicht > MinGewicht) {
         breeding = true;
     }
 }
@@ -244,17 +247,17 @@ void Initating(std::vector<Hebivoren>& Hebi, std::vector<Karnivoren>& Karni, Heb
 }
 void passingTime(std::vector<Hebivoren>& Hebi, std::vector<Karnivoren>& Karni, Hebivoren& h1, Karnivoren& k1) {
     for(unsigned int i{}; i < Hebi.size(); i++) {
-        Hebi.at(i).Alterungsschritt();
         if(Hebi.at(i).checkAge()) {
             Hebi.at(i).Altersschwaeche();
         }
         if(!Hebi.at(i).dead) {
             Hebi.at(i).breed();
-            if(Hebi.at(i).breeding) {
+            if(Hebi.at(i).breeding == true) {
                 breedHebi(Hebi, h1, Hebi.at(i).getRasse());
                 std::cout << "A wild "<< Hebi.at(i).getRasse() << " has been born" << std::endl;
             }
         }
+        Hebi.at(i).Alterungsschritt();
     }
 }
 void printPark(std::vector<Hebivoren>& Hebi, std::vector<Karnivoren>& Karni) {
