@@ -308,14 +308,18 @@ void passingTime(std::vector<Hebivoren>& Hebi, std::vector<Karnivoren>& Karni, H
     removeDead(Hebi, Karni);
 
 }
-void printPark(std::vector<Hebivoren>& Hebi, std::vector<Karnivoren>& Karni) {
+void printPark(std::vector<Hebivoren>& Hebi, std::vector<Karnivoren>& Karni, int& BrachiCount, int& ParaCount, int& RaptorCount, int& TrexCount) {
     for(unsigned int i = 0; i < Hebi.size(); i ++ ) {      //print out all information to check
             std::cout << Hebi.at(i) << std::endl;
             std::cout << "Vermehrrate: " <<Hebi.at(i).getVersteckchance() << std::endl<< std::endl;
+            if(Hebi.at(i).getRasse() == "Brachiosaurus") BrachiCount++;
+            if(Hebi.at(i).getRasse() == "Parasaurolophus") ParaCount++;
         }
         for(unsigned int i = 0; i < Karni.size(); i ++ ) {
             std::cout << Karni.at(i) <<std::endl;
             std::cout << Karni.at(i).getFailHunt() << std::endl<< std::endl;
+            if(Karni.at(i).getRasse() == "Raptor") RaptorCount++;
+            if(Karni.at(i).getRasse() == "Tyrannosaurus Rex") TrexCount++;
         }
 }
 void removeDead(std::vector<Hebivoren>& Hebi, std::vector<Karnivoren>& Karni) {
@@ -335,6 +339,7 @@ void removeDead(std::vector<Hebivoren>& Hebi, std::vector<Karnivoren>& Karni) {
     }
 }
 
+
 int main()
 {
     srand(time(NULL));
@@ -342,9 +347,12 @@ int main()
     std::vector<Karnivoren> Karni;
     Hebivoren h1;
     Karnivoren k1;
+    int BrachiCount{}, ParaCount{}, RaptorCount{}, TrexCount{};
     Initating(Hebi, Karni, h1, k1);
-    printPark(Hebi, Karni);
+
     passingTime(Hebi,Karni, h1, k1);
+    printPark(Hebi, Karni, BrachiCount, ParaCount, RaptorCount, TrexCount);
+    std::cout << "Brachio: " << BrachiCount << "\nPara: " << ParaCount << "\nRaptor: " << RaptorCount << "\nTrex: " << TrexCount << std::endl;
 
 }
 
