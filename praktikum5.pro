@@ -4,7 +4,12 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
+        Funktion.cpp \
+        Hebivoren.cpp \
+        Karnivoren.cpp \
+        Tieren.cpp \
         main.cpp
 
 HEADERS += \
-    Tieren.h
+    Tieren.h \
+    main.h
