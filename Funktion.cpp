@@ -1,5 +1,9 @@
 #include"Tieren.h"
-
+std::ostream& operator<<(std::ostream& stream, Tieren& Tier) {    //practicing operator overloading
+    stream << "Rasse " << Tier.getRasse() << "\nGewicht " << Tier.getGewicht() << "\nMax Gewicht " << Tier.getMaxGewicht() << "\nMin Gewicht " << Tier.getMinGewicht()
+           << "\nWachstumsrate " << Tier.getWachstumsrate() << "\nVermehrrate " << Tier.getVermehrrate() <<"%";
+    return stream;
+}
 
 //Alle Funktionen Quellcode
 void CreatingKarni(std::vector<Karnivoren>& Karni, Karnivoren& k1, std::string& Race);

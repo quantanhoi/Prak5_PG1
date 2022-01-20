@@ -70,11 +70,7 @@ double Tieren::getVermehrrate() {
     log(getVermehrrate());
     log("End");
 }*/
-std::ostream& operator<<(std::ostream& stream, Tieren& Tier) {    //practicing operator overloading
-    stream << "Rasse " << Tier.getRasse() << "\nGewicht " << Tier.getGewicht() << "\nMax Gewicht " << Tier.getMaxGewicht() << "\nMin Gewicht " << Tier.getMinGewicht()
-           << "\nWachstumsrate " << Tier.getWachstumsrate() << "\nVermehrrate " << Tier.getVermehrrate() <<"%";
-    return stream;
-}
+
 void Tieren::setInfo(std::string& Race) {
     if(Race == "Brachiosaurus") {
         Rasse = "Brachiosaurus";
