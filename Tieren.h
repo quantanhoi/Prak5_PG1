@@ -4,9 +4,11 @@
 #include<string>
 #include<vector>
 #include<time.h>
+
 #define log(x) std::cout << x << std::endl;
 #include"Hebivoren.h"
 #include"Karnivoren.h"
+enum RaceName{Brachiosaurus = 0, Parasaurolophus, Raptor, TyrannosaurusRex};
 class Tieren {
 private:
 
@@ -15,10 +17,13 @@ private:
     double Wachstumsrate;
     int Vermehrrate;
 
+
 protected:
+
     std::string Rasse;
     int Gewicht;
 public:
+    RaceName Race;
     bool dead{false};
     bool breeding{false};
     void initialisieren();   //initialisiert den Park mit gegebenen Info
@@ -33,8 +38,11 @@ public:
     int getMinGewicht();
     double getWachstumsrate();
     double getVermehrrate();
-    void setInfo(std::string& Rasse);
+    void setInfo(RaceName Race);
     std::string getRasse();
+    RaceName getRaceName() {
+        return Race;
+    }
     void printInfo();
     Tieren() {
         dead = false;

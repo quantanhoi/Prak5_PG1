@@ -1,4 +1,4 @@
-#include"Karnivoren.h"
+#include"Tieren.h"
 //Karnivoren Quellcode
 
 void Karnivoren::hunt(std::vector<Hebivoren>& Hebi) {          //here the Karnivoren will hunt a pack of Hebivoren, so there're little chance that these meat-craving guys will die
@@ -11,6 +11,7 @@ void Karnivoren::hunt(std::vector<Hebivoren>& Hebi) {          //here the Karniv
                 Gewicht = Gewicht + ((getMaxGewicht()*20)/100);
                 std::cout << "A " << Hebi.at(i).getRasse() << " has been hunted down" << std::endl;
                 huntSuccess = true;
+                FailedHuntCounter =0;    //reset counter
                 break;
             }
 

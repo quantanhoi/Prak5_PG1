@@ -1,4 +1,4 @@
-#include"Hebivoren.h"
+#include"Tieren.h"
 //Hebivoren Quellcode
 
 void Hebivoren::setVersteckchance() {

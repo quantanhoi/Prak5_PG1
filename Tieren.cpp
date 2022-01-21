@@ -71,29 +71,29 @@ double Tieren::getVermehrrate() {
     log("End");
 }*/
 
-void Tieren::setInfo(std::string& Race) {
-    if(Race == "Brachiosaurus") {
+void Tieren::setInfo(RaceName Race) {
+    if(Race == Brachiosaurus) {
         Rasse = "Brachiosaurus";
         Maximalgewicht = 30000;
         MinGewicht = (5*Maximalgewicht) / 100;
         Wachstumsrate = 1.2;
         Vermehrrate = 15;
     }
-    if(Race == "Parasaurolophus") {
+    if(Race == Parasaurolophus) {
         Rasse = "Parasaurolophus";
         Maximalgewicht = 1500;
         MinGewicht = (5*Maximalgewicht) / 100;
         Wachstumsrate = 1.4;
         Vermehrrate = 85;
     }
-    if(Race == "Raptor") {
+    if(Race == Raptor) {
         Rasse ="Raptor";
         Maximalgewicht = 500;
         MinGewicht = (20 * Maximalgewicht) / 100;
         Wachstumsrate = 1.3;
         Vermehrrate = 12;
     }
-    if(Race == "Tyrannosaurus Rex") {
+    if(Race == TyrannosaurusRex) {
         Rasse ="Tyrannosaurus Rex";
         Maximalgewicht = 8000;
         MinGewicht = (20 * Maximalgewicht) / 100;
