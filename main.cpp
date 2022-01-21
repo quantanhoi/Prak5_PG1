@@ -24,6 +24,7 @@ int main()
         printPark(Hebi, Karni, BrachiCount, ParaCount, RaptorCount, TrexCount);
         log(passMonth << " Monate sind vergangen...");
         std::cout << "Brachio: " << BrachiCount << "\nPara: " << ParaCount << "\nRaptor: " << RaptorCount << "\nTrex: " << TrexCount << std::endl;
+        BrachiCount =0; ParaCount = 0; RaptorCount = 0; TrexCount = 0;
         while(fortsetzen!= 'y' && fortsetzen!= 'n') {
             std::cout << "Continue? (y/n): ";
             std::cin >> fortsetzen;
