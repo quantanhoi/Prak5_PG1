@@ -72,7 +72,8 @@ double Tieren::getVermehrrate() {
 }*/
 
 void Tieren::setInfo(RaceName Race) {
-    if(Race == Brachiosaurus) {
+    /*if(Race == Brachiosaurus) {
+        Race = Brachiosaurus;
         Rasse = "Brachiosaurus";
         Maximalgewicht = 30000;
         MinGewicht = (5*Maximalgewicht) / 100;
@@ -80,6 +81,7 @@ void Tieren::setInfo(RaceName Race) {
         Vermehrrate = 15;
     }
     if(Race == Parasaurolophus) {
+        Race = Parasaurolophus;
         Rasse = "Parasaurolophus";
         Maximalgewicht = 1500;
         MinGewicht = (5*Maximalgewicht) / 100;
@@ -87,6 +89,7 @@ void Tieren::setInfo(RaceName Race) {
         Vermehrrate = 85;
     }
     if(Race == Raptor) {
+        Race = Raptor;
         Rasse ="Raptor";
         Maximalgewicht = 500;
         MinGewicht = (20 * Maximalgewicht) / 100;
@@ -94,11 +97,46 @@ void Tieren::setInfo(RaceName Race) {
         Vermehrrate = 12;
     }
     if(Race == TyrannosaurusRex) {
+        Race = TyrannosaurusRex;
         Rasse ="Tyrannosaurus Rex";
         Maximalgewicht = 8000;
         MinGewicht = (20 * Maximalgewicht) / 100;
         Wachstumsrate = 1.2;
         Vermehrrate = 8;
+    }*/
+    switch(Race) {
+    case Brachiosaurus:
+
+        Rasse = "Brachiosaurus";
+        Maximalgewicht = 30000;
+        MinGewicht = (5*Maximalgewicht) / 100;
+        Wachstumsrate = 1.2;
+        Vermehrrate = 15;
+        break;
+
+    case Parasaurolophus:
+
+        Rasse = "Parasaurolophus";
+        Maximalgewicht = 1500;
+        MinGewicht = (5*Maximalgewicht) / 100;
+        Wachstumsrate = 1.4;
+        Vermehrrate = 85;
+        break;
+    case Raptor:
+
+        Rasse ="Raptor";
+        Maximalgewicht = 500;
+        MinGewicht = (20 * Maximalgewicht) / 100;
+        Wachstumsrate = 1.3;
+        Vermehrrate = 12;
+        break;
+    case TyrannosaurusRex:
+        Rasse ="Tyrannosaurus Rex";
+        Maximalgewicht = 8000;
+        MinGewicht = (20 * Maximalgewicht) / 100;
+        Wachstumsrate = 1.2;
+        Vermehrrate = 8;
+        break;
     }
 
 }

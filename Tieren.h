@@ -40,7 +40,7 @@ public:
     double getVermehrrate();
     void setInfo(RaceName Race);
     std::string getRasse();
-    RaceName getRaceName() {
+    RaceName& getRaceName() {
         return Race;
     }
     void printInfo();
@@ -58,7 +58,7 @@ public:
     void setVersteckchance();
     bool hide();
     void extraInfo();   //extra information für Initialisieren
-    double getVersteckchance();
+    int getVersteckchance();
 };
 
 class Karnivoren:public Tieren {

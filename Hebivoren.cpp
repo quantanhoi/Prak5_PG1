@@ -9,6 +9,6 @@ void Hebivoren::setVersteckchance() {
         Versteckchance = 75;
     }
 }
-double Hebivoren::getVersteckchance() {
+int Hebivoren::getVersteckchance() {
     return Versteckchance;
 }

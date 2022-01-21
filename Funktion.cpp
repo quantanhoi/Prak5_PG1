@@ -1,6 +1,6 @@
 #include"Tieren.h"
 std::ostream& operator<<(std::ostream& stream, Tieren& Tier) {    //practicing operator overloading
-    stream << Tier.getRaceName() << "\nRasse " << Tier.getRasse() << "\nGewicht " << Tier.getGewicht() << "\nMax Gewicht " << Tier.getMaxGewicht() << "\nMin Gewicht " << Tier.getMinGewicht()
+    stream << "\nRasse " << Tier.getRasse() << "\nGewicht " << Tier.getGewicht() << "\nMax Gewicht " << Tier.getMaxGewicht() << "\nMin Gewicht " << Tier.getMinGewicht()
            << "\nWachstumsrate " << Tier.getWachstumsrate() << "\nVermehrrate " << Tier.getVermehrrate() <<"%";
     return stream;
 }
@@ -21,13 +21,16 @@ void CreatingKarni(std::vector<Karnivoren>& Karni, Karnivoren& k1, RaceName Race
     k1.initialisieren();
     Karni.push_back(k1);
 }
-void breedHebi (std::vector<Hebivoren>& Hebi, Hebivoren& h1, RaceName Race ) {        //Breedhebi mit minGewicht
+void breedHebi (std::vector<Hebivoren>& Hebi, Hebivoren& h1, RaceName Race ) {
+    //Breedhebi mit minGewicht
+    h1.Race = Race;
     h1.setInfo(Race);
     h1.setVersteckchance();
     h1.breedGewicht();
     Hebi.push_back(h1);
 }
 void breedKarni (std::vector<Karnivoren>& Karni, Karnivoren& k1, RaceName Race) {
+    k1.Race = Race;
     k1.setInfo(Race);
     k1.breedGewicht();
     Karni.push_back(k1);
