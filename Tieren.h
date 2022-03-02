@@ -31,7 +31,7 @@ public:
     void Alterungsschritt();    //wachsen
     void Altersschwaeche();     //schwächen und sterben
     void breed();
-    void breedGewicht();
+    void breedGewicht();   //Tiere mit minGewicht erstellen
 //getFunktion
     int getGewicht();
     int getMaxGewicht();
@@ -56,7 +56,6 @@ private:
     int Versteckchance;
 public:
     void setVersteckchance();
-    bool hide();
     void extraInfo();   //extra information für Initialisieren
     int getVersteckchance();
 };

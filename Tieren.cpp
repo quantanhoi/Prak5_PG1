@@ -141,5 +141,5 @@ void Tieren::setInfo(RaceName Race) {
 
 }
 void Tieren::initialisieren() {
-    Gewicht = rand()%(Maximalgewicht - MinGewicht) + MinGewicht;
+    Gewicht = rand()%(Maximalgewicht - MinGewicht) + MinGewicht;     //zufallige Gewicht fuer die Tieren im Park (wird in initating benutzt)
 }

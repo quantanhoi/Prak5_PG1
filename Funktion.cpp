@@ -10,7 +10,7 @@ std::ostream& operator<<(std::ostream& stream, Tieren& Tier) {    //practicing o
 void removeDead(std::vector<Hebivoren>& Hebi, std::vector<Karnivoren>& Karni);
 
 
-void CreatingHebi (std::vector<Hebivoren>& Hebi, Hebivoren& h1, RaceName Race) {    //Entstehung der Hebivoren mit gegebenen Informationen
+void CreatingHebi (std::vector<Hebivoren>& Hebi, Hebivoren& h1, RaceName Race) {    //Entstehung der Hebivoren mit gegebenen Informationen (wird in Initating benutzen)
     h1.setInfo(Race);
     h1.setVersteckchance();
     h1.initialisieren();
@@ -29,13 +29,13 @@ void breedHebi (std::vector<Hebivoren>& Hebi, Hebivoren& h1, RaceName Race ) {
     h1.breedGewicht();
     Hebi.push_back(h1);
 }
-void breedKarni (std::vector<Karnivoren>& Karni, Karnivoren& k1, RaceName Race) {
+void breedKarni (std::vector<Karnivoren>& Karni, Karnivoren& k1, RaceName Race) {    //breed Karni mit minGewicht
     k1.Race = Race;
     k1.setInfo(Race);
     k1.breedGewicht();
     Karni.push_back(k1);
 }
-void Initating(std::vector<Hebivoren>& Hebi, std::vector<Karnivoren>& Karni, Hebivoren& h1, Karnivoren& k1) {
+void Initating(std::vector<Hebivoren>& Hebi, std::vector<Karnivoren>& Karni, Hebivoren& h1, Karnivoren& k1) {    //Park mit gegebenen Informationen initialisieren
     h1.Race = Brachiosaurus;
     for(int i = 0; i < 4; i++ ) {
         CreatingHebi(Hebi, h1, h1.Race);
@@ -56,17 +56,19 @@ void Initating(std::vector<Hebivoren>& Hebi, std::vector<Karnivoren>& Karni, Heb
     //printPark(Hebi, Karni);             //checking the list of all inititated animal in the park
 
 }
-void passingTime(std::vector<Hebivoren>& Hebi, std::vector<Karnivoren>& Karni, Hebivoren& h1, Karnivoren& k1) {
+void passingTime(std::vector<Hebivoren>& Hebi, std::vector<Karnivoren>& Karni, Hebivoren& h1, Karnivoren& k1, int& gesamt) {
     for(unsigned int i{}; i < Hebi.size(); i++) {
         if(Hebi.at(i).checkAge()) {
             Hebi.at(i).Altersschwaeche();
         }
         if(!Hebi.at(i).dead) {    //if the animal is not dead then it can breed
             Hebi.at(i).breed();
-            if(Hebi.at(i).breeding == true) {      //check if an individual is able to breed
+            if(Hebi.at(i).breeding == true && gesamt <= 100) {      //check if an individual is able to breed
                 if(Hebi.at(i).getRaceName() == Parasaurolophus) {
                     for( int z{}; z < 3; z++ ) {
                         breedHebi(Hebi, h1, Hebi.at(i).getRaceName());
+                        gesamt++;
+                        if(gesamt == 100) continue;
                         std::cout << "A wild "<< Hebi.at(i).getRasse() << " has been born" << std::endl;
                     }
                 }
@@ -89,18 +91,19 @@ void passingTime(std::vector<Hebivoren>& Hebi, std::vector<Karnivoren>& Karni, H
         }
         if(!Karni.at(i).dead) {
             Karni.at(i).breed();
-            if(Karni.at(i).breeding == true) {
+            if(Karni.at(i).breeding == true && gesamt <= 100) {
                 breedKarni(Karni, k1, Karni.at(i).getRaceName());
+                gesamt++;
                 std::cout << "A wild "<< Karni.at(i).getRasse() << " has been born" << std::endl;
+                if(gesamt == 100) continue;
             }
         }
         Karni.at(i).Alterungsschritt();
-        Karni.at(i).hunt(Hebi);
+        Karni.at(i).hunt(Hebi);   //hunt
     }
     removeDead(Hebi, Karni);
-
 }
-void printPark(std::vector<Hebivoren>& Hebi, std::vector<Karnivoren>& Karni, int& BrachiCount, int& ParaCount, int& RaptorCount, int& TrexCount) {
+void printPark(std::vector<Hebivoren>& Hebi, std::vector<Karnivoren>& Karni, int& BrachiCount, int& ParaCount, int& RaptorCount, int& TrexCount, int& gesamt) {
     for(unsigned int i = 0; i < Hebi.size(); i ++ ) {      //print out all information to check
             std::cout << Hebi.at(i) << std::endl;
             std::cout << "Versteckschance: " <<Hebi.at(i).getVersteckchance() << std::endl<< std::endl;
@@ -113,6 +116,7 @@ void printPark(std::vector<Hebivoren>& Hebi, std::vector<Karnivoren>& Karni, int
             if(Karni.at(i).getRaceName() == Raptor) RaptorCount++;
             if(Karni.at(i).getRaceName() == TyrannosaurusRex) TrexCount++;
         }
+        gesamt = BrachiCount + ParaCount + RaptorCount + TrexCount;
 }
 void removeDead(std::vector<Hebivoren>& Hebi, std::vector<Karnivoren>& Karni) {
     for(unsigned int i = 0; i < Hebi.size(); i ++ ) {
